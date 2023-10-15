@@ -1,0 +1,23 @@
+[submodule "kimera_ws/src/Kimera-Semantics"]
+	path = kimera_ws/src/Kimera-Semantics
+	url = https://github.com/soeroesg/Kimera-Semantics
+[submodule "kimera_ws/src/Kimera-VIO_ROS"]
+	path = kimera_ws/src/Kimera-VIO_ROS
+	url = https://github.com/MIT-SPARK/Kimera-VIO-ROS.git
+[submodule "kimera_ws/src/zed-ros-wrapper"]
+	path = kimera_ws/src/zed-ros-wrapper
+	url = https://github.com/stereolabs/zed-ros-wrapper.git
+[submodule "kimera_ws/src/Azure_Kinect_ROS_Driver"]
+	path = kimera_ws/src/Azure_Kinect_ROS_Driver
+	url = https://github.com/microsoft/Azure_Kinect_ROS_Driver.git
+[submodule "kimera_ws/src/mask_rcnn_ros"]
+	path = kimera_ws/src/mask_rcnn_ros
+	url = git@bitbucket.org:nipg/mask_rcnn_ros.git
+[submodule "kimera_ws/src/realsense-ros"]
+	path = kimera_ws/src/realsense-ros
+	url = https://github.com/IntelRealSense/realsense-ros.git
+	branch = development
+[submodule "kimera_ws/src/detectron2_ros"]
+	path = kimera_ws/src/detectron2_ros
+	url = git@bitbucket.org:JoulSkaf/indoor_instance_segmentation_inference.git
+	branch = feature/ros_node

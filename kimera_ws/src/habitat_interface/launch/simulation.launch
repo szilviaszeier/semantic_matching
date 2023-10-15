@@ -1,0 +1,82 @@
+<launch>
+    <arg name="mesh_path" doc="The Replica mesh path mesh, that provides the model for simulation"/>
+    <arg name="camera_config" default="../config/calib_k4a.yml" doc="The camera parameters of the virtual camera that simulates the image"/>
+    <arg name="robot_frame" default="habitat_robot_base" doc="The frame of the robot sensor, where the camera pose is tracked"/>
+    <arg name="parent_frame" default="habitat_odometry_frame" doc="The world or the odometry frame, where we get the sensor frame. Should be aligned to the mesh"/>
+    <arg name="image_topic_name" default="/habitat/rgb/image_raw" doc="The images will be saved under this topic"/>
+    <arg name="depth_topic_name" default="/habitat/depth/image_raw" doc="The depth images will be saved under this topic"/>
+    <arg name="semantic_topic_name" default="/habitat/semantics/image_raw" doc="The semantic imaes will be saved under this topic"/>
+    <arg name="compressed_image_topic_name" default="/habitat/rgb/image_raw/compressed" doc="The compressed images will be savd under this topic"/>
+    <arg name="compressed_depth_topic_name" default="/habitat/depth/image_raw/compressed" doc="The compressed depth images will be saved under this topic"/>
+    <arg name="compressed_semantic_topic_name" default="/habitat/semantics/image_raw/compressed" doc="The compressed semantic images will be saved under this topic"/>
+    <arg name="save_bag" default="false" doc="Turns on saving to a bag file. Set the path of the file with `output_bag_name`."/>
+    <arg name="output_bag_name" default="$(find habitat_interface)/data/output.bag" doc="The name and relative path of the output bag file"/>
+    <arg name="output_agent_pose_name" default="$(find habitat_interface)/data/agent_states.npy" doc="The name and relative path of the output agent pose file"/>
+    <arg name="save_files" default="false" doc="Turns on saving to a file. Set the path of the file with `save_files_dir`."/>
+    <arg name="save_files_dir" default="$(find habitat_interface)/data/" doc="The relative path of the output directory of the files."/>
+    <arg name="target_fps" default="5" doc="The number of frames to render per second"/>
+    <arg name="compressed" default="false" doc="To compress images saved to rosbag"/>
+    <arg name="replay_mode" default="false" doc="To replay recorded trajectory from numpy array of poses"/>
+    <arg name="depth_noise_multiplier" default="0.0" doc="Weight of the RedwoodDepthNoiseModel noise on the depth image."/>
+    <arg name="gaussian_sigma" default="0.5" doc="Sigma of the Gaussian blur"/>
+    <arg name="motion_blur_weight" default="1" doc="Weighting of the motion blur"/>
+    <arg name="publish_tf" default="true" doc="To publish ground truth tf messages to rosbag"/>
+    <arg name="queue_size" default="5" doc="Queue size of publishers."/>
+    <arg name="show_cameras" default="false" doc="Show rendered scene through cameras."/>
+
+    <!-- sim settings -->
+    <arg name="width" default="640" doc="Horizontal resolution of the observations, used params: 1280, 672, 640" />
+    <arg name="height" default="480" doc="Vertical resolution of the observations, used params: 720, 480, 376" />
+    <arg name="default_agent" default="0" doc="" />
+    <arg name="sensor_height" default="0.2" doc="Height of sensors in meters, we use 1.8 and 0.2" />
+    <arg name="color_sensor" default="True" doc="RGB sensor" />
+    <arg name="depth_sensor" default="True" doc="Depth sensor" />
+    <arg name="semantic_sensor" default="True" doc="Semantic sensor" />
+    <arg name="seed" default="1" doc="used in the random navigation" />
+    <arg name="enable_physics" default="False" doc="kinematics only" />
+    <arg name="depth_offset" default="0.0" doc="Offset of the depth sensor on the horizontal axis in meters" />
+
+    <group unless="$(arg replay_mode)">
+        <include file="$(find habitat_interface)/launch/navigator.launch"/>
+    </group>
+
+    <node pkg="habitat_interface" type="traj_sim.py" name="habitat_simulation" output="screen">
+        <param name="mesh_path" value="$(arg mesh_path)"/> 
+        <param name="camera_config" value="$(arg camera_config)"/>
+        <param name="robot_frame" value="$(arg robot_frame)"/>
+        <param name="parent_frame" value="$(arg parent_frame)"/>
+        <param name="image_topic_name" value="$(arg image_topic_name)"/>
+        <param name="depth_topic_name" value="$(arg depth_topic_name)"/>
+        <param name="semantic_topic_name" value="$(arg semantic_topic_name)"/>
+        <param name="compressed_image_topic_name" value="$(arg compressed_image_topic_name)"/>
+        <param name="compressed_depth_topic_name" value="$(arg compressed_depth_topic_name)"/>
+        <param name="compressed_semantic_topic_name" value="$(arg compressed_semantic_topic_name)"/>
+        <param name="save_bag" value="$(arg save_bag)"/>
+        <param name="output_bag_name" value="$(arg output_bag_name)"/>
+        <param name="output_agent_pose_name" value="$(arg output_agent_pose_name)"/>
+        <param name="save_files" value="$(arg save_files)"/>
+        <param name="save_files_dir" value="$(arg save_files_dir)"/>
+        <param name="target_fps" value="$(arg target_fps)"/>
+        <param name="compressed" value="$(arg compressed)"/>
+        <param name="replay_mode" value="$(arg replay_mode)"/>
+        <param name="depth_noise_multiplier" value="$(arg depth_noise_multiplier)"/>
+        <param name="gaussian_sigma" value="$(arg gaussian_sigma)"/>
+        <param name="motion_blur_weight" value="$(arg motion_blur_weight)"/>
+        <param name="publish_tf" value="$(arg publish_tf)"/>
+        <param name="queue_size" value="$(arg queue_size)"/>
+        <param name="show_cameras" value="$(arg show_cameras)"/>
+
+        <!-- sim settings -->
+        <param name="sim/width" value="$(arg width)"/>
+        <param name="sim/height" value="$(arg height)"/>
+        <param name="sim/default_agent" value="$(arg default_agent)"/>
+        <param name="sim/sensor_height" value="$(arg sensor_height)"/>
+        <param name="sim/color_sensor" value="$(arg color_sensor)"/>
+        <param name="sim/depth_sensor" value="$(arg depth_sensor)"/>
+        <param name="sim/semantic_sensor" value="$(arg semantic_sensor)"/>
+        <param name="sim/seed" value="$(arg seed)"/>
+        <param name="sim/enable_physics" value="$(arg enable_physics)"/>
+        <param name="sim/depth_offset" value="$(arg depth_offset)"/>
+
+    </node>
+</launch>

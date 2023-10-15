@@ -1,0 +1,11 @@
+# Set these environment variables:
+
+# Repository root folder
+SEMANTIC_ROOT="/home/szilvi/publication/semantic_matching"
+
+# Local or network data folder that will be mounted into the container
+SEMANTIC_DATA_DIR="/nas/database"
+
+# ROS master URI (comment out if running in the same container)
+ROS_MASTER_URI="http://nipg31.inf.elte.hu:11811"
+

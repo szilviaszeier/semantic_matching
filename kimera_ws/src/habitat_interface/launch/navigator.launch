@@ -1,0 +1,8 @@
+<launch>
+    <node
+        pkg="habitat_interface" 
+        type="navigator.py"
+        name="habitat_navigator"
+        output="screen">
+    </node>
+</launch>

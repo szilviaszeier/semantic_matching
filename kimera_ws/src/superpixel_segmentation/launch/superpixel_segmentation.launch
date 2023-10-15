@@ -1,0 +1,33 @@
+<launch>
+    <arg name="mesh_path" doc="The semantic or RGB mesh that provides the labels for the views"/>
+    <arg name="image_topic" default="/habitat/rgb/image_raw" doc="Where the streaming RGB images are received over ROS"/>
+    <arg name="depth_topic" default="/habitat/depth/image_raw" doc="The topic where the robot depth images are published"/>
+    <arg name="superpixel_topic" default="/semantics/superpixel" doc="We are going to publish the superpixel segmented images over this topic"/>
+    <arg name="camera_config" default="$(find superpixel_segmentation)/config/calib_habitat.yml" doc="The camera parameters of the virtual camera that renders the image"/>
+    <arg name="sensor_frame" default="habitat_rgb_frame" doc="The frame of the robot sensor where the camera pose is tracked"/>
+    <arg name="parent_frame" default="habitat_odometry_frame" doc="The world or the odometry frame where we get the sensor frame. Should be aligned to the mesh"/>
+    <arg name="voxel_size" default="0.05" doc="The size of a voxel in the 3D space in meters."/>
+    <arg name="method" default="baseline" doc="The procedure to run. (baseline, camera, 3d_supix, 3d_neighbor, dbscan)"/>
+    <arg name="pos_difference" default="0.05" doc="The maximum allowed distance between points of the point cloud in meters."/>
+    <arg name="depth_scale" default="1" doc="The depth scaling factor to ensure calculations are done in meters."/>
+    <arg name="gt_ratio" default="0.6" doc="The minimum ratio of ground truth to unknown labels in a superpixel needed to extend labelling."/>
+    <arg name="recordings_path" default="./data" doc="Under this directory should be stored images and and poses in the imgs and poses folders accordingly"/>
+    <arg name="visualization" default="False" doc="If we would like to open a viewer with the loaded model first"/>
+
+    <node pkg="superpixel_segmentation" type="ros_superpixel_node.py" name="superpixel_segmentation" output="screen">
+        <param name="mesh_path" value="$(arg mesh_path)"/>
+        <param name="image_topic" value="$(arg image_topic)"/>
+        <param name="depth_topic" value="$(arg depth_topic)"/>
+        <param name="superpixel_topic" value="$(arg superpixel_topic)"/>
+        <param name="camera_config" value="$(arg camera_config)"/>
+        <param name="sensor_frame" value="$(arg sensor_frame)"/>
+        <param name="parent_frame" value="$(arg parent_frame)"/>
+        <param name="voxel_size" value="$(arg voxel_size)"/>
+        <param name="method" value="$(arg method)"/>
+        <param name="pos_difference" value="$(arg pos_difference)"/>
+        <param name="depth_scale" value="$(arg depth_scale)"/>
+        <param name="gt_ratio" value="$(arg gt_ratio)"/>
+        <param name="recordings_path" value="$(arg recordings_path)"/>
+        <param name="visualization" value="$(arg visualization)"/>
+    </node>
+</launch>

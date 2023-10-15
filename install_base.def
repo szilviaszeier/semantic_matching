@@ -1,0 +1,120 @@
+Bootstrap: docker
+
+From: nvidia/cudagl:10.2-devel-ubuntu18.04
+
+%setup
+
+%files
+
+%post
+    # Making sure there will be no interactions during the build
+    export DEBIAN_FRONTEND=noninteractive
+
+    # Downloads the latest package lists (important).
+    apt-get update && apt-get -y upgrade
+
+    # Install several dependencies via Aptitude
+    apt-get -yq install \
+        build-essential \
+        wget \
+        bzip2 \
+        ca-certificates \
+        libglib2.0-0 \
+        libxext6 \
+        libsm6 \
+        libxrender1 \
+        git \
+        protobuf-compiler \
+        autoconf \
+        lsb-release \
+        curl
+
+    apt-get install -y \
+        --no-install-recommends apt-utils
+
+    apt-get install -y \
+        cmake \
+        unzip \
+        pkg-config \
+        libboost-all-dev \
+        libjpeg-dev \
+        libpng-dev \
+        libtiff-dev \
+        libvtk6-dev \
+        libgtk-3-dev \
+        libatlas-base-dev \
+        gfortran \
+        libparmetis-dev
+
+
+
+    # ROS
+    sh -c 'echo "deb http://packages.ros.org/ros/ubuntu `lsb_release -sc` main" > /etc/apt/sources.list.d/ros-latest.list'
+    wget http://packages.ros.org/ros.key -O - | apt-key add -
+    # THIS UPDATE IS VERY IMPORTANT
+    apt-get update
+
+    apt-get install -y \
+        python-wstool \
+        python-catkin-tools
+
+    # Change 'melodic' below for your own ROS distro
+    apt-get -yq install \
+        ros-melodic-cmake-modules
+
+    # Needed for tzdata, to not give gui prompt
+    export TZ=Europe/Budapest
+    ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone
+
+    # This next cmd installs around 1200 packages
+    apt-get -yq install \
+        ros-melodic-image-geometry \
+        ros-melodic-pcl-ros \
+        ros-melodic-cv-bridge \
+        ros-melodic-rviz-visual-tools \
+        ros-melodic-visualization-msgs \
+        ros-melodic-camera-info-manager \
+        ros-melodic-jsk-recognition-msgs \
+        ros-melodic-jsk-rviz-plugins \
+        ros-melodic-move-base \
+        ros-melodic-image-proc \
+        ros-melodic-stereo-msgs \
+        ros-melodic-shape-msgs \
+        ros-melodic-tf2-bullet \
+        ros-melodic-depth-image-proc \
+        ros-melodic-ddynamic-reconfigure \
+        ros-melodic-librealsense2 \
+        ros-melodic-image-transport-plugins \
+        ros-melodic-rqt \
+        ros-melodic-rqt-common-plugins \
+        ros-melodic-rqt-robot-plugins \
+        ros-melodic-rosbridge-suite \
+        ros-melodic-rosbash
+
+
+    # Conda installation
+    curl https://repo.anaconda.com/pkgs/misc/gpgkeys/anaconda.asc | gpg --dearmor > conda.gpg
+    install -o root -g root -m 644 conda.gpg /usr/share/keyrings/conda-archive-keyring.gpg
+    # Check whether fingerprint is correct (will output an error message otherwise)
+    gpg --keyring /usr/share/keyrings/conda-archive-keyring.gpg --no-default-keyring --fingerprint 34161F5BF5EB1D4BFBBB8F0A8AEB4F8B29D82806
+    # Add conda Debian repo
+    echo "deb [arch=amd64 signed-by=/usr/share/keyrings/conda-archive-keyring.gpg] https://repo.anaconda.com/pkgs/misc/debrepo/conda stable main" > /etc/apt/sources.list.d/conda.list
+
+    apt-get update
+    apt-get -yq install \
+        conda
+
+%test
+    grep -q NAME=\"Ubuntu\" /etc/os-release
+    if [ $? -eq 0 ]; then
+        echo "Container base is Ubuntu as expected."
+    else
+        echo "Container base is not Ubuntu."
+    fi
+    nvcc --version
+
+%environment
+
+%runscript
+
+%startscript

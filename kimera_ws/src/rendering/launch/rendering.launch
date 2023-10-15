@@ -1,0 +1,27 @@
+<launch>
+    <arg name="mesh_path" default="../meshes/NokiaBudapestA1_semantic_full.ply" doc="The semantic or RGB mesh that provides the labels for the views"/>
+    <arg name="recordings_path" default="./data" doc="Under this directory should be stored images and and poses in the imgs and poses folders accordingly"/>
+    <arg name="camera_config" default="../config/calib_habitat.yml" doc="The camera parameters of the virtual camera that renders the image"/>
+    <arg name="visualization" default="True" doc="If we would like to open a viewer with the loaded model first"/>
+    <arg name="sensor_frame" default="habitat_rgb_frame" doc="The frame of the robot sensor where the camera pose is tracked"/>
+    <arg name="parent_frame" default="habitat_odometry_frame" doc="The world or the odometry frame where we get the sensor frame. Should be aligned to the mesh"/>
+    <arg name="image_topic" default="rgb/image_raw" doc="Where the streaming RGB images are received over ROS"/>
+    <arg name="depth_topic" default="depth_to_rgb/image_raw" doc="The topic where the robot depth images are published"/>
+    <arg name="rendered_topic" default="semantics/rendered" doc="We are going to publish the rendered images over this topic"/>
+    <arg name="rendered_overlayed_topic" default="semantics/rendered_overlayed" doc="We are going to publish the rendered stacked on the RGB images over this topic"/>
+    <arg name="rendered_depth_topic" default="semantics/rendered_depth" doc="We are going to publish the rendered depth images over this topic"/>
+
+    <node pkg="rendering" type="ros_render_node.py" name="rendering" output="screen">
+        <param name="mesh_path" value="$(arg mesh_path)"/>
+        <param name="recordings_path" value="$(arg recordings_path)"/>
+        <param name="camera_config" value="$(arg camera_config)"/>
+        <param name="visualization" value="$(arg visualization)"/>
+        <param name="sensor_frame" value="$(arg sensor_frame)"/>
+        <param name="parent_frame" value="$(arg parent_frame)"/>
+        <param name="image_topic" value="$(arg image_topic)"/>
+        <param name="depth_topic" value="$(arg depth_topic)"/>
+        <param name="rendered_topic" value="$(arg rendered_topic)"/>
+        <param name="rendered_overlayed_topic" value="$(arg rendered_overlayed_topic)"/>
+        <param name="rendered_depth_topic" value="$(arg rendered_depth_topic)"/>
+    </node>
+ </launch>

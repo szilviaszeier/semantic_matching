@@ -1,0 +1,21 @@
+name: detectron2
+channels:
+  - pytorch
+  - defaults
+  - conda-forge
+dependencies:
+  - python=3.9
+  - pip
+  - cudatoolkit=10.2
+  - pytorch=1.10.1
+  - torchvision=0.11
+  - rospkg
+  - ninja
+  - yacs
+  - cython
+  - matplotlib
+  - tqdm
+  - scikit-image
+  - kornia
+  - pip:
+    - opencv-python

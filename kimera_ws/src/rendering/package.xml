@@ -1,0 +1,27 @@
+<?xml version="1.0"?>
+<package format="2">
+  <name>rendering</name>
+  <version>0.0.0</version>
+  <description>The rendering package</description>
+
+  <maintainer email="davidrozenberszki@nokia.com">rozdavid</maintainer>
+
+  <license>MIT</license>
+
+  <buildtool_depend>catkin</buildtool_depend>
+  <depend>sensor_msgs</depend>
+  <depend>std_msgs</depend>
+  <depend>image_geometry</depend>
+  <depend>cv_bridge</depend>
+  <depend>tf2</depend>
+  <depend>tf2_msgs</depend>
+  <depend>tf2_eigen</depend>
+  <depend>tf2_ros</depend>
+
+
+  <!-- The export tag contains other, unspecified, tags -->
+  <export>
+    <!-- Other tools can request additional information be placed here -->
+
+  </export>
+</package>

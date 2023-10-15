@@ -1,0 +1,5 @@
+image_width: 640
+image_height: 480
+baseline: 0.0630239
+camera_matrix: [ 268.51, 0., 320.0, 0., 268.51, 240.0, 0., 0., 1. ]
+distortion_coefficients: [ 0., 0., 0., 0., 0. ]
