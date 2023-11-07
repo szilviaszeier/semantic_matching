@@ -1,0 +1,6 @@
+./output
+
+.idea/
+__pycache__/
+
+colors.json

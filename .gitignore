@@ -3,5 +3,5 @@
 .idea
 __pycache__/
 .vscode/
-semantic_mapping.sif
+*.sif
 

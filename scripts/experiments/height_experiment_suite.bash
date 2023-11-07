@@ -9,7 +9,7 @@
 # Adjust MESH_RESULTS_PATH or make sure the given path exists
 
 # Make sure to adjust the container path in relevan files (habitat_one_run.bash) on line starting with:
-# $SCRIPT_DIR/../singularity/start.bash
+# $SCRIPT_DIR/../apptainer/start.bash
 
 SCRIPT_DIR="$(dirname "$(readlink -f "$0")")"
 

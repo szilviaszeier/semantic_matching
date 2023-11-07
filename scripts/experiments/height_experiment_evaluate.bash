@@ -11,7 +11,7 @@ METHODS=(transfiner) # habitat mrcnn transfiner
 TRAJECTORIES=(0 1)
 SUPIX=(baseline camera 3d_supix 3d_neighbor dbscan)
 
-$SCRIPT_DIR/../singularity/start.bash /home/szilvi/image_sandbox/
+$SCRIPT_DIR/../apptainer/start.bash /home/szilvi/image_sandbox/
 
 for room in "${ROOMS[@]}"
 do
@@ -35,15 +35,15 @@ do
         done # METHODS
 
         # compare to high_gt
-        $SCRIPT_DIR/../singularity/exec.bash $SCRIPT_DIR/../run/compare_meshes.bash\
+        $SCRIPT_DIR/../apptainer/exec.bash $SCRIPT_DIR/../run/compare_meshes.bash\
             $MESH_RESULTS_PATH/${room}_1.8_${trajectory}_gt.ply\
             "${HIGH_EVALUATIONS[@]}"
 
         # compare to low_gt
-        $SCRIPT_DIR/../singularity/exec.bash $SCRIPT_DIR/../run/compare_meshes.bash\
+        $SCRIPT_DIR/../apptainer/exec.bash $SCRIPT_DIR/../run/compare_meshes.bash\
             $MESH_RESULTS_PATH/${room}_0.2_${trajectory}_gt.ply\
             "${LOW_EVALUATIONS[@]}"
     done # TRAJECTORIES
 done # ROOMS
 
-$SCRIPT_DIR/../singularity/stop.bash
+$SCRIPT_DIR/../apptainer/stop.bash

@@ -23,7 +23,7 @@ METHODS=(3d_neighbor_using_GT_mesh_fast_slic_100_10) # trained_model gt mrcnn tr
 # 3d_neighbor_using_GT_mesh_fast_slic_100_10
 SUPIX=() # baseline camera 3d_supix 3d_neighbor dbscan 3d_slic 
 
-$SCRIPT_DIR/../singularity/start.bash /home/szilvi/image_sandbox
+$SCRIPT_DIR/../apptainer/start.bash /home/szilvi/image_sandbox
 
 for room in "${ROOMS[@]}"
 do
@@ -50,16 +50,16 @@ do
         done # METHODS
 
         # compare to high_gt
-        #$SCRIPT_DIR/../singularity/exec.bash $SCRIPT_DIR/../run/compare_meshes.bash\
+        #$SCRIPT_DIR/../apptainer/exec.bash $SCRIPT_DIR/../run/compare_meshes.bash\
         #    $MESH_RESULTS_PATH/${room}/high_gt_${noise_name}_noise.ply\
         #    "${HIGH_EVALUATIONS[@]}"
 
         # compare to low_gt
-        $SCRIPT_DIR/../singularity/exec.bash $SCRIPT_DIR/../run/compare_meshes.bash\
+        $SCRIPT_DIR/../apptainer/exec.bash $SCRIPT_DIR/../run/compare_meshes.bash\
             $MESH_RESULTS_PATH/${room}/low_gt_${noise_name}_noise.ply\
             "${LOW_EVALUATIONS[@]}"
 
     done # NOISES
 done # ROOMS
 
-$SCRIPT_DIR/../singularity/stop.bash
+$SCRIPT_DIR/../apptainer/stop.bash

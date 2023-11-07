@@ -1,8 +1,12 @@
+# Data Description
+
+## Reconstructed 3D Semantic Models
+The reconstructed 3D semantic models reference in the accompanying paper can be found under [reconstructions](reconstructions/). The models are divided into real-world and simulated reconstructions. The simulated ones were obtained from the Habitat simulator using the Replica dataset.
+
 ## Replica dataset
 
-[paper](https://arxiv.org/abs/1906.05797)
-
-[github](https://github.com/facebookresearch/Replica-Dataset)
+[Paper](https://arxiv.org/abs/1906.05797) |
+[Code](https://github.com/facebookresearch/Replica-Dataset)
 
 - Download the Replica dataset as described [here](https://github.com/facebookresearch/Replica-Dataset).
    To work with the Replica dataset, you need a file called `sorted_faces.bin` for each model.
@@ -112,11 +116,9 @@
 
 ## Matterport3D dataset
 
-[link](https://niessner.github.io/Matterport/)
-
-[paper](https://arxiv.org/abs/1709.06158)
-
-[github](https://github.com/niessner/Matterport)
+[Source](https://niessner.github.io/Matterport/) |
+[Paper](https://arxiv.org/abs/1709.06158) |
+[Code](https://github.com/niessner/Matterport)
 
 (You need to register and accept the MP3D terms and conditions first!)
 Use the following script to download the Matterport3D data: [download_mp.py](http://kaldir.vc.in.tum.de/matterport/download_mp.py).
@@ -144,8 +146,6 @@ python download-mp.py -o $HOME/data/mp3d --id 17DRP5sb8fy --task_data habitat
 
 ## 3RScan dataset
 
-[link](http://vmnavab26.in.tum.de/3RScan/)
-
-[paper](https://arxiv.org/pdf/1908.06109.pdf)
-
-[github](https://github.com/WaldJohannaU/3RScan)
+[Source](http://vmnavab26.in.tum.de/3RScan/) |
+[Paper](https://arxiv.org/pdf/1908.06109.pdf) |
+[Code](https://github.com/WaldJohannaU/3RScan)

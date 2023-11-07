@@ -1,0 +1,14 @@
+build/
+devel/
+logs/
+.catkin_tools/
+.idea/
+src/*
+!src/kimera_interface/
+!src/habitat_interface/
+!src/semantic_segmentation/
+!src/superpixel_segmentation/
+!src/detectron2_ros/
+!src/openbot_navigation
+!src/rendering
+!src/vision_opencv_fc782bb.patch

@@ -1,0 +1,16 @@
+<launch>
+    <arg name="image_topic" default="/habitat/rgb/image_raw" doc="Where the streaming RGB images are received over ROS"/>
+    <arg name="semantic_topic" default="/semantics/semantic_image" doc="We are going to publish the segmented images over this topic"/>
+    <arg name="config_file" default="$(find detectron2_ros)/configs/mask_rcnn_R_101_FPN_3x_transfiner_deform.yaml" doc=""/>
+    <arg name="model" default="Mask_R_CNN_16" doc="Which model to use (Mask_R_CNN_7, Transfiner_7)"/>
+    <arg name="confidence_threshold" default="0.8" doc=""/>
+    
+    
+    <node pkg="detectron2_ros" type="ros_detectron2_node.py" name="detectron2_node" output="screen">
+        <param name="image_topic" value="$(arg image_topic)"/>
+        <param name="semantic_topic" value="$(arg semantic_topic)"/>
+        <param name="config_file" value="$(arg config_file)"/>
+        <param name="model_path" value="$(find detectron2_ros)/pretrained_models/$(arg model).pth"/>
+        <param name="confidence_threshold" value="$(arg confidence_threshold)"/>
+    </node>
+</launch>

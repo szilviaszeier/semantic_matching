@@ -14,7 +14,7 @@ TRAJECTORIES=(0 1)
 HEIGHTS=(0.2 0.8 1.2 1.8) # 0.2 0.8 1.2 1.8
 METHODS=(gt mrcnn transfiner)
 
-$SCRIPT_DIR/../singularity/start.bash /home/szilvi/image_sandbox
+$SCRIPT_DIR/../apptainer/start.bash /home/szilvi/image_sandbox
 
 for room in "${ROOMS[@]}"
 do
@@ -24,12 +24,12 @@ do
         do
 
             # compare to gt to mrcnn
-            $SCRIPT_DIR/../singularity/exec.bash $SCRIPT_DIR/../run/compare_meshes.bash\
+            $SCRIPT_DIR/../apptainer/exec.bash $SCRIPT_DIR/../run/compare_meshes.bash\
                 $MESH_RESULTS_PATH/${room}_${height}_${trajectory}_gt.ply\
                 $MESH_RESULTS_PATH/${room}_${height}_${trajectory}_mrcnn.ply\
 
             # compare to gt to transfiner
-            $SCRIPT_DIR/../singularity/exec.bash $SCRIPT_DIR/../run/compare_meshes.bash\
+            $SCRIPT_DIR/../apptainer/exec.bash $SCRIPT_DIR/../run/compare_meshes.bash\
                 $MESH_RESULTS_PATH/${room}_${height}_${trajectory}_gt.ply\
                 $MESH_RESULTS_PATH/${room}_${height}_${trajectory}_transfiner.ply\
             
@@ -37,4 +37,4 @@ do
     done # TRAJECTORIES
 done # ROOMS
 
-$SCRIPT_DIR/../singularity/stop.bash
+$SCRIPT_DIR/../apptainer/stop.bash

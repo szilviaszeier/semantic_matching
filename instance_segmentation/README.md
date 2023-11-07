@@ -1,11 +1,12 @@
-## Indoor instance segmentation using pytorch and detectron2 
+# Indoor Instance Segmentation using Pytorch and Detectron2 
+ Instance segmentation directly on images/video, needed for postprocessing, as a different version already exists within the pipeline.
 
-### requirements
+## Requirements
 1) OS: ubuntu =< 18.x 
 2) Conda: Miniconda/Anaconda
 3) CUDA, CPU can be also used by modifying few parameters.
 
-### installation
+## Installation
 ``` commandline
 # Create conda environment
 conda create -n transfiner python=3.9 -y
@@ -28,16 +29,16 @@ pip install 'git+https://github.com/facebookresearch/detectron2.git'
 or simply run "installation.sh"
 
 
-### Data format:
+## Data format:
 - Images should have an appropriate format (png, jpg/jpeg), with 3 channels.
 - Annotations should be of coco format otherwise a mapping function should be specified.
 
-### Folder structure:
+## Folder structure:
 - Datasets, directory containing the required datasets, multiple ones can be specified.
 - Output, directory containing the training output, including the checkpoints and the final model. In order to resume training the existence of these checkpoints is required.
 - Models, directory containing the pre-trained models and their required libraries.
 
-### Running the code
+## Running the code
 Specify the required arguments or pass them in the main function.
 ``` commandline
 python main.py [optional arguments]
@@ -86,11 +87,11 @@ optional arguments:
 ```
 The dataset path, and classes should be specified in main.py as well.
 
-### Parameter-tuning 
+## Parameter-tuning 
 - The training parameters are already tuned to a near optimal degree, further tuning is possible but does not guarantee a significant improvement in the results.
 - Learning rate decay is enabled by default as part of the tuning process.
 
-### Training the lower perspective dataset:
+## Training the lower perspective dataset:
 - Carefully check the main.py file, and select the appropriate annotations file (annotations-json) from there options (20, 10, 5, 1), where each represent the number of frames that were skipped.
 - Select the appropriate method from used_method = ["seman"], ["supix"], or [transf]:
 - Change the number of iterations and batch_size according to this formular (epochs = (iterations * batch_size) / number of images in the training data)
